@@ -83,8 +83,14 @@ Enter a comment with the number of employees returned,
 the name of the oldest employee who was hired last, 
 and the name of the youngest employee who was hired first.
 	362 rows returned
-	Khun Bernini
-    Alselm Cappello
+	Khun Bernini */
+
+SELECT * FROM employees
+WHERE (hire_date LIKE '199%'
+AND birth_date LIKE '%12-25')
+ORDER BY birth_date DESC, hire_date ASC;
+-- Douadi Pettis
+
 
 
 
