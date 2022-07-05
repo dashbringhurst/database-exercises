@@ -29,6 +29,10 @@ SELECT * FROM employees
 WHERE last_name LIKE 'E%'
 OR last_name LIKE '%E';
 -- 30723 rows returned
+
+SELECT * FROM employees
+WHERE (last_name NOT LIKE 'E%'
+AND last_name LIKE '%E');
 -- 23393 people have last names that end with E
 -- but do not start with E
 
