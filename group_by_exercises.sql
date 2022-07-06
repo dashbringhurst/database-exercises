@@ -90,19 +90,55 @@ HAVING COUNT(username) > 1;
 When you hear, read, or think "for each" with regard to SQL, 
 you'll probably be grouping by that exact column. */
 
+SELECT emp_no, AVG(salary), 
+COUNT(*) FROM salaries
+GROUP BY emp_no;
 
 /* Using the dept_emp table, count how many current employees 
 work in each department. The query result should show 9 rows, 
 one for each department and the employee count. */
 
--- Determine how many different salaries each employee has had. This includes both historic and current.
+SELECT dept_no, COUNT(emp_no)
+FROM dept_emp
+GROUP BY dept_no;
+
+-- Determine how many different salaries each employee has had. 
+-- This includes both historic and current.
+
+SELECT emp_no, COUNT(salary) 
+FROM salaries
+GROUP BY emp_no;
 
 -- Find the maximum salary for each employee.
 
+SELECT emp_no, MAX(salary), COUNT(emp_no)
+FROM salaries
+GROUP BY emp_no;
+
 -- Find the minimum salary for each employee.
+
+SELECT emp_no, MIN(salary), COUNT(emp_no)
+FROM salaries
+GROUP BY emp_no;
 
 -- Find the standard deviation of salaries for each employee.
 
+SELECT emp_no, STD(salary), COUNT(emp_no) 
+FROM salaries
+GROUP BY emp_no;
+
 -- Now find the max salary for each employee where that max salary is greater than $150,000.
 
--- Find the average salary for each employee where that average salary is between $80k and $90k.
+SELECT emp_no, MAX(salary), COUNT(emp_no)
+FROM salaries
+GROUP BY emp_no
+HAVING MAX(salary) > 150000;
+
+/* Find the average salary for each employee where that average 
+salary is between $80k and $90k. */
+
+SELECT emp_no,
+CAST(AVG(salary) AS DECIMAL(10,2)) AS avg_salary,
+COUNT(*) FROM salaries
+GROUP BY emp_no
+HAVING avg_salary BETWEEN 80000 AND 90000;
