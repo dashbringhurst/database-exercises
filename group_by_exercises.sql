@@ -92,6 +92,7 @@ you'll probably be grouping by that exact column. */
 
 SELECT emp_no, AVG(salary), 
 COUNT(*) FROM salaries
+WHERE to_date < '9999-01-01'
 GROUP BY emp_no;
 
 /* Using the dept_emp table, count how many current employees 
@@ -100,6 +101,7 @@ one for each department and the employee count. */
 
 SELECT dept_no, COUNT(emp_no)
 FROM dept_emp
+WHERE to_date = '9999-01-01'
 GROUP BY dept_no;
 
 -- Determine how many different salaries each employee has had. 
