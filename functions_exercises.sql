@@ -54,6 +54,9 @@ SELECT MAX(salary) FROM salaries;
 SELECT MIN(salary) FROM salaries;
 -- 38623
 
+SELECT MIN(salary), MAX(salary) FROM salaries
+WHERE to_date = '9999-01-01';
+
 /* Use your knowledge of built in SQL functions to generate a 
 username for all of the employees. A username should be all 
 lowercase, and consist of the first character of the employees 
