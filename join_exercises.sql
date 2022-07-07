@@ -30,9 +30,10 @@ Use count and the appropriate join type to get a list of
 roles along with the number of users that has the role. 
 Hint: You will also need to use group by in the query. */
 
-SELECT users.name as user_name, roles.name as role_name
+SELECT COUNT(users.name) as user_count, roles.name as role_name
 FROM users 
-JOIN roles ON users.role_id = roles.id;
+JOIN roles ON users.role_id = roles.id
+GROUP BY role_name;
 
 
 -- Use the employees database.
@@ -168,12 +169,6 @@ GROUP BY d.dept_name;
 /* Bonus Find the names of all current employees, their 
 department name, and their current manager's name. */
 
-
-
-
-
-
-
-
-
+-- SELECT CONCAT(e.first_name, ' ', e.last_name) AS 'Employee Name',
+-- d.dept_name AS 'Department Name', 
 
