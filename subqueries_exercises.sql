@@ -65,9 +65,10 @@ WHERE emp_no IN
 -- std of max: 
 
 SELECT salary from salaries
-WHERE salary > (SELECT MAX(salary) FROM salaries as ms) -
+WHERE salary > (SELECT MAX(salary) FROM salaries as ms
+				WHERE to_date > NOW()) -
 	(SELECT STDDEV(salary) FROM
-		(SELECT MAX(salary) FROM salaries as ms) as sd
+		salaries as sd
 		WHERE to_date > NOW())
 -- AND salary > ((SELECT MAX(salary) FROM salaries as ms) - (SELECT STDDEV(salary) FROM
 -- 		(SELECT MAX(salary) FROM salaries as ms) as sd))        
@@ -82,17 +83,16 @@ You will use this number (or the query that produced it) in other, larger querie
 SELECT salary from salaries
 WHERE salary > (SELECT MAX(salary) FROM salaries as ms) -
 	(SELECT STDDEV(salary) FROM
-		(SELECT MAX(salary) FROM salaries as ms) as sd
-		WHERE to_date > NOW())
--- AND salary > ((SELECT MAX(salary) FROM salaries as ms) - (SELECT STDDEV(salary) FROM
--- 		(SELECT MAX(salary) FROM salaries as ms) as sd))        
-AND to_date > NOW();  
+		salaries as sd
+		WHERE to_date > NOW())        
+AND to_date > NOW();
+-- 83 rows returned  
 
 -- 17309.95933634675
-SELECT STD(salary) FROM salaries
-WHERE to_date > NOW();
+-- SELECT STD(salary) FROM salaries
+-- WHERE to_date > NOW();
 
-select salary from salaries
-where salary > (158220 - 17309.95933634675)
-and to_date > NOW();
+-- select salary from salaries
+-- where salary > (158220 - 17309.95933634675)
+-- and to_date > NOW();
 -- 83 rows returned
