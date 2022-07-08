@@ -61,14 +61,16 @@ WHERE emp_no IN
 /* How many current salaries are within 1 standard deviation of the current highest salary? 
 (Hint: you can use a built in function to calculate the standard deviation.) */
 
+-- max salary: 158220
+-- std of max: 
 
 SELECT salary from salaries
-WHERE 
+WHERE salary > (SELECT MAX(salary) FROM salaries as ms) -
 	(SELECT STDDEV(salary) FROM
 		(SELECT MAX(salary) FROM salaries as ms) as sd
 		WHERE to_date > NOW())
-AND salary > (salary - (SELECT STDDEV(salary) FROM
-		(SELECT MAX(salary) FROM salaries as ms) as sd))        
+-- AND salary > ((SELECT MAX(salary) FROM salaries as ms) - (SELECT STDDEV(salary) FROM
+-- 		(SELECT MAX(salary) FROM salaries as ms) as sd))        
 AND to_date > NOW();
 
 /* What percentage of all salaries is this?
@@ -77,4 +79,20 @@ Hint It's a good practice to write out all of the small queries that you can.
 Add a comment above the query showing the number of rows returned. 
 You will use this number (or the query that produced it) in other, larger queries. */
 
-  
+SELECT salary from salaries
+WHERE salary > (SELECT MAX(salary) FROM salaries as ms) -
+	(SELECT STDDEV(salary) FROM
+		(SELECT MAX(salary) FROM salaries as ms) as sd
+		WHERE to_date > NOW())
+-- AND salary > ((SELECT MAX(salary) FROM salaries as ms) - (SELECT STDDEV(salary) FROM
+-- 		(SELECT MAX(salary) FROM salaries as ms) as sd))        
+AND to_date > NOW();  
+
+-- 17309.95933634675
+SELECT STD(salary) FROM salaries
+WHERE to_date > NOW();
+
+select salary from salaries
+where salary > (158220 - 17309.95933634675)
+and to_date > NOW();
+-- 83 rows returned
